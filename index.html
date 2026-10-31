@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bilik Mərkəzi - 3-5 Siniflər</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #0f172a, #1e1b4b, #311045);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            width: 100%;
+            max-width: 750px;
+            padding: 35px;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        h1 {
+            color: #4f46e5;
+            margin-bottom: 25px;
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+        .menu-box {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 20px;
+        }
+        .menu-btn {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            color: white;
+            border: none;
+            padding: 16px;
+            font-size: 17px;
+            font-weight: 600;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .menu-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px rgba(99, 102, 241, 0.5);
+            filter: brightness(1.1);
+        }
+        .menu-btn.rus {
+            background: linear-gradient(135deg, #f43f5e, #e11d48);
+            box-shadow: 0 8px 20px rgba(244, 63, 94, 0.3);
+        }
+        .menu-btn.rus:hover {
+            box-shadow: 0 12px 25px rgba(244, 63, 94, 0.5);
+        }
+        .menu-btn.eng {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+        }
+        .menu-btn.eng:hover {
+            box-shadow: 0 12px 25px rgba(139, 92, 246, 0.5);
+        }
+        .menu-btn.math {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+        }
+        .menu-btn.math:hover {
+            box-shadow: 0 12px 25px rgba(245, 158, 11, 0.5);
+        }
+        .menu-btn.animals-en {
+            background: linear-gradient(135deg, #10b981, #059669);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+        }
+        .menu-btn.animals-en:hover {
+            box-shadow: 0 12px 25px rgba(16, 185, 129, 0.5);
+        }
+        .menu-btn.animals-ru {
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+            box-shadow: 0 8px 20px rgba(14, 165, 233, 0.3);
+        }
+        .menu-btn.animals-ru:hover {
+            box-shadow: 0 12px 25px rgba(14, 165, 233, 0.5);
+        }
+        .menu-btn.parent {
+            background: linear-gradient(135deg, #831843, #be185d);
+            box-shadow: 0 8px 20px rgba(190, 24, 93, 0.3);
+        }
+        .menu-btn.parent:hover {
+            box-shadow: 0 12px 25px rgba(190, 24, 93, 0.5);
+        }
+        .quiz-box {
+            display: none;
+        }
+        .progress {
+            font-size: 15px;
+            color: #64748b;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .question {
+            font-size: 19px;
+            color: #1e293b;
+            margin-bottom: 25px;
+            font-weight: 700;
+            text-align: center;
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 16px;
+            border: 2px solid #e2e8f0;
+            line-height: 1.6;
+        }
+        .animal-icon {
+            font-size: 75px;
+            margin-bottom: 12px;
+            display: block;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .btn {
+            background-color: #f1f5f9;
+            border: 2px solid #e2e8f0;
+            padding: 16px;
+            border-radius: 14px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+            padding-left: 20px;
+            color: #334155;
+        }
+        .btn:hover {
+            background-color: #e0e7ff;
+            border-color: #6366f1;
+            color: #4f46e5;
+            transform: translateX(4px);
+        }
+        .btn.correct {
+            background-color: #10b981 !important;
+            border-color: #059669 !important;
+            color: white !important;
+        }
+        .btn.wrong {
+            background-color: #f43f5e !important;
+            border-color: #e11d48 !important;
+            color: white !important;
+        }
+        .action-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            gap: 12px;
+        }
+        .control-btns {
+            display: flex;
+            gap: 12px;
+        }
+        #next-btn {
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: none;
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+        }
+        #next-btn:hover {
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+        }
+        .refresh-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            padding: 14px 18px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+        .refresh-btn:hover {
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+        }
+        .back-menu-btn {
+            background-color: #94a3b8;
+            color: white;
+            border: none;
+            padding: 14px 18px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .back-menu-btn:hover {
+            background-color: #64748b;
+            transform: translateY(-2px);
+        }
+        .parent-box {
+            display: none;
+            text-align: left;
+        }
+        .parent-box h2 {
+            color: #1e293b;
+            margin-bottom: 15px;
+            font-size: 26px;
+            text-align: center;
+        }
+        .report-card {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+        .report-card p {
+            font-size: 15px;
+            color: #334155;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🎒 Bilik Mərkəzi (3-5 Siniflər)</h1>
+        
+        <!-- Əsas Menyu -->
+        <div id="main-menu" class="menu-box">
+            <h3 style="font-size: 17px; color: #475569; margin-bottom: 10px; font-weight: 900;">Xoş Gəldin MƏHBUŞ</h3>
+            <p style="font-size: 17px; color: #475569; margin-bottom: 2px; font-weight: 600;">Zəhmət olmasa fənni seçin:</p>
+            <button class="menu-btn" onclick="startQuiz('azerbaijani')">🇦🇿 Azərbaycan dili (3-5 sinif)</button>
+            <button class="menu-btn rus" onclick="startQuiz('russian')">🇷🇺 Русский язык (3-5 классы)</button>
+            <button class="menu-btn eng" onclick="startQuiz('english')">🇬🇧 English language (Grades 3-5)</button>
+            <button class="menu-btn math" onclick="startQuiz('math')">📐 Riyaziyyat (3-5 sinif)</button>
+            <button class="menu-btn animals-en" onclick="startQuiz('animals_en')">🐾 Animals (English)</button>
+            <button class="menu-btn animals-ru" onclick="startQuiz('animals_ru')">🐾 Животные (Русский)</button>
+            <button class="menu-btn parent" onclick="openParentDashboard()">👩‍👧 Valideyn Canlı İzləmə (Ana üçün)</button>
+        </div>
+
+        <!-- Quiz Hissəsi -->
+        <div id="quiz-box" class="quiz-box">
+            <div class="progress" id="progress">Sual 1 / 5</div>
+            <div class="question" id="question-text">Sual yüklənir...</div>
+            <div class="options" id="options-container"></div>
+            
+            <div class="action-row">
+                <button class="back-menu-btn" onclick="goToMenu()">🏠 Menyuko</button>
+                <div class="control-btns">
+                    <button class="refresh-btn" onclick="loadNewBatch()">🔄 Yeni</button>
+                    <button id="next-btn" onclick="nextQuestion()">Növbəti ➡️</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Valideyn Canlı İzləmə Paneli -->
+        <div id="parent-box" class="parent-box">
+            <h2>👩‍👧 Valideyn Canlı İzləmə Paneli</h2>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <p style="font-weight: bold; color: #334155;">📜 Uşağın Etdiyi Tapşırıqlar (Canlı):</p>
+                <button onclick="clearParentHistory()" style="background: #f43f5e; color: white; border: none; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 13px;">🗑️ Tarixçəni Təmizlə</button>
+            </div>
+            <div id="report-content" style="max-height: 350px; overflow-y: auto; margin-bottom: 20px;"></div>
+            <button class="menu-btn" style="font-size: 16px; padding: 12px; width: 100%; justify-content: center;" onclick="goToMenu()">🏠 Menyusa qayıt</button>
+        </div>
+    </div>
+
+    <script>
+        const questionBank = {
+            azerbaijani: [
+                { question: "Hansı sözdə vurğu ikinci hecaya düşür?", options: ["Kitab", "Məktəb", "Qələm", "Ailə"], answer: 0 },
+                { question: "Cümlənin sonunda hansı durğu işarəsi qoyulur: 'Sən səhər tezdən durdunmu'", options: [".", "!", "?", ","], answer: 2 },
+                { question: "Hansı sözdə bütün səslər samitdir?", options: ["Ana", "Atəş", "Dəftər", "Stol"], answer: 3 },
+                { question: "Sinonim sözlər cütlüyünü tapın:", options: ["Böyük - Kiçik", "Ağ - Qara", "İsti - Istı", "Gözəl - Qəşəng"], answer: 3 },
+                { question: "Hansı sözdə 'ş' hərfi var?", options: ["Alma", "Şaftalı", "Armud", "Üzüm"], answer: 1 },
+                { question: "Antonimlər cütlüyünü seçin:", options: ["Dost - Tanış", "Ağ - Qara", "Gözəl - Qəşəng", "Sürətli - Cəld"], answer: 1 },
+                { question: "İsim hansı suallara cavab verir?", options: ["Nə edir? Necə?", "Kim? Nə? Hara?", "Necə? Nə cür?", "Neçə? Neçənci?"], answer: 1 }
+            ],
+            russian: [
+                { question: "Найдите имя существительное:", options: ["Бежать", "Красивый", "Солнце", "Быстро"], answer: 2 },
+                { question: "Сколько падежей в русском языке?", options: ["5", "6", "7", "8"], answer: 1 },
+                { question: "Какое слово пишется с большой буквы?", options: ["город", "баку", "река", "машина"], answer: 1 },
+                { question: "Найдите антоним к слову «день»:", options: ["Утро", "Вечер", "Ночь", "Солнце"], answer: 2 },
+                { question: "В каком слове есть мягкий знак (ь) в конце?", options: ["Дом", "Стол", "Мяч", "Тетрадь"], answer: 3 },
+                { question: "Выберите глагол:", options: ["Парта", "Учить", "Синий", "Школа"], answer: 1 }
+            ],
+            english: [
+                { question: "What is the capital of Azerbaijan?", options: ["Ganja", "Baku", "Sumgait", "Shamakhi"], answer: 1 },
+                { question: "Choose the correct pronoun: '___ is a boy.'", options: ["She", "He", "It", "They"], answer: 1 },
+                { question: "How many days are there in a week?", options: ["5", "6", "7", "10"], answer: 2 },
+                { question: "Translate into English: 'Alma'", options: ["Banana", "Apple", "Orange", "Pear"], answer: 1 },
+                { question: "What color is the sky?", options: ["Red", "Green", "Blue", "Yellow"], answer: 2 },
+                { question: "Choose the plural form of 'Cat':", options: ["Cats", "Caties", "Catz", "Cat"], answer: 0 }
+            ],
+            math: [
+                { question: "125 + 347 ədədinin cəmini tapın:", options: ["462", "472", "562", "482"], answer: 1 },
+                { question: "854 - 329 fərqini hesablayın:", options: ["525", "535", "515", "425"], answer: 0 },
+                { question: "48-in 6-a olan qismini (bölünməsini) tapın:", options: ["6", "7", "8", "9"], answer: 2 },
+                { question: "Tənliyi həll edin: x * 5 = 45", options: ["7", "8", "9", "10"], answer: 2 },
+                { question: "Kvadratın tərəfi 7 sm olarsa, perimetrini tapın:", options: ["21 sm", "28 sm", "14 sm", "49 sm"], answer: 1 },
+                { question: "1 saatda neçə dəqiqə var?", options: ["30 dəqiqə", "60 dəqiqə", "90 dəqiqə", "100 dəqiqə"], answer: 1 }
+            ],
+            animals_en: [
+                { question: "What animal is this?", image: "🦁", options: ["Lion", "Bear", "Tiger", "Wolf"], answer: 0 },
+                { question: "What animal is this?", image: "🐘", options: ["Monkey", "Elephant", "Giraffe", "Zebra"], answer: 1 },
+                { question: "What animal is this?", image: "🦊", options: ["Dog", "Cat", "Fox", "Rabbit"], answer: 2 },
+                { question: "What animal is this?", image: "🐼", options: ["Panda", "Bear", "Koala", "Wolf"], answer: 0 },
+                { question: "What animal is this?", image: "🦒", options: ["Horse", "Giraffe", "Zebra", "Cow"], answer: 1 },
+                { question: "What animal is this?", image: "🐵", options: ["Monkey", "Lion", "Tiger", "Fox"], answer: 0 },
+                { question: "What animal is this?", image: "🐧", options: ["Duck", "Penguin", "Owl", "Bird"], answer: 1 }
+            ],
+            animals_ru: [
+                { question: "Как называется это животное?", image: "🦁", options: ["Лев", "Медведь", "Тигр", "Волк"], answer: 0 },
+                { question: "Как называется это животное?", image: "🐘", options: ["Обезьяна", "Слон", "Жираф", "Зебра"], answer: 1 },
+                { question: "Как называется это животное?", image: "🦊", options: ["Собака", "Кошка", "Лиса", "Заяц"], answer: 2 },
+                { question: "Как называется это животное?", image: "🐼", options: ["Панда", "Медведь", "Коала", "Волк"], answer: 0 },
+                { question: "Как называется это животное?", image: "🦒", options: ["Лошадь", "Жираф", "Зебра", "Корова"], answer: 1 },
+                { question: "Как называется это животное?", image: "🐵", options: ["Обезьяна", "Лев", "Тигр", "Лиса"], answer: 0 },
+                { question: "Как называется это животное?", image: "🐧", options: ["Утка", "Пингвин", "Сова", "Птица"], answer: 1 }
+            ]
+        };
+
+        const subjectNames = {
+            azerbaijani: "Azərbaycan dili",
+            russian: "Русский язык",
+            english: "English language",
+            math: "Riyaziyyat",
+            animals_en: "Animals (English)",
+            animals_ru: "Животные (Русский)"
+        };
+
+        let currentSubject = '';
+        let currentQuestions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let answerLocked = false;
+
+        const mainMenu = document.getElementById("main-menu");
+        const quizBox = document.getElementById("quiz-box");
+        const parentBox = document.getElementById("parent-box");
+        const questionText = document.getElementById("question-text");
+        const optionsContainer = document.getElementById("options-container");
+        const nextBtn = document.getElementById("next-btn");
+        const progressText = document.getElementById("progress");
+        const reportContent = document.getElementById("report-content");
+
+        function startQuiz(subjectKey) {
+            currentSubject = subjectKey;
+            loadNewBatch();
+            mainMenu.style.display = "none";
+            parentBox.style.display = "none";
+            quizBox.style.display = "block";
+        }
+
+        function loadNewBatch() {
+            let pool = [...questionBank[currentSubject]];
+            let seenKey = 'seen_v9_' + currentSubject;
+            let seenIndices = JSON.parse(localStorage.getItem(seenKey)) || [];
+
+            let availableIndices = [];
+            for (let i = 0; i < pool.length; i++) {
+                if (!seenIndices.includes(i)) {
+                    availableIndices.push(i);
+                }
+            }
+
+            if (availableIndices.length < 5) {
+                seenIndices = [];
+                availableIndices = pool.map((_, i) => i);
+            }
+
+            availableIndices.sort(() => Math.random() - 0.5);
+            let selectedIndices = availableIndices.slice(0, 5);
+            
+            selectedIndices.forEach(idx => seenIndices.push(idx));
+            localStorage.setItem(seenKey, JSON.stringify(seenIndices));
+
+            currentQuestions = selectedIndices.map(idx => pool[idx]);
+            currentQuestionIndex = 0;
+            score = 0;
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            answerLocked = false;
+            nextBtn.style.display = "none";
+            const currentQ = currentQuestions[currentQuestionIndex];
+            
+            progressText.innerText = `Sual ${currentQuestionIndex + 1} / ${currentQuestions.length}`;
+            
+            if (currentQ.image) {
+                questionText.innerHTML = `<span class="animal-icon">${currentQ.image}</span>${currentQ.question}`;
+            } else {
+                questionText.innerText = currentQ.question;
+            }
+
+            optionsContainer.innerHTML = "";
+
+            currentQ.options.forEach((option, index) => {
+                const btn = document.createElement("button");
+                btn.classList.add("btn");
+                btn.innerText = option;
+                btn.onclick = () => selectAnswer(index, btn);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectAnswer(selectedIndex, selectedBtn) {
+            if (answerLocked) return;
+            answerLocked = true;
+
+            const currentQ = currentQuestions[currentQuestionIndex];
+            const allButtons = optionsContainer.children;
+            let isCorrect = (selectedIndex === currentQ.answer);
+
+            if (isCorrect) {
+                selectedBtn.classList.add("correct");
+                score++;
+            } else {
+                selectedBtn.classList.add("wrong");
+                allButtons[currentQ.answer].classList.add("correct");
+            }
+
+            saveLiveAnswerToHistory({
+                time: new Date().toLocaleTimeString(),
+                subject: subjectNames[currentSubject],
+                question: currentQ.image ? `${currentQ.image} ${currentQ.question}` : currentQ.question,
+                selected: currentQ.options[selectedIndex],
+                correctAnswer: currentQ.options[currentQ.answer],
+                isCorrect: isCorrect
+            });
+
+            nextBtn.style.display = "inline-block";
+        }
+
+        function saveLiveAnswerToHistory(answerData) {
+            let liveHistory = JSON.parse(localStorage.getItem('parent_live_answers')) || [];
+            liveHistory.unshift(answerData);
+            if (liveHistory.length > 50) liveHistory.pop();
+            localStorage.setItem('parent_live_answers', JSON.stringify(liveHistory));
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            // 5 sual bitəndə test bitmir, avtomatik olaraq növbəti təzə suallar dəstinə keçir (sonsuz dövr)
+            if (currentQuestionIndex < currentQuestions.length) {
+                loadQuestion();
+            } else {
+                loadNewBatch();
+            }
+        }
+
+        function openParentDashboard() {
+            mainMenu.style.display = "none";
+            quizBox.style.display = "none";
+            parentBox.style.display = "block";
+
+            let liveHistory = JSON.parse(localStorage.getItem('parent_live_answers')) || [];
+            if (liveHistory.length === 0) {
+                reportContent.innerHTML = `<p style="text-align: center; color: #64748b;">Hələ heç bir sual cavablandırılmayıb.</p>`;
+                return;
+            }
+
+            let html = "";
+            liveHistory.forEach((item) => {
+                let statusColor = item.isCorrect ? "#10b981" : "#f43f5e";
+                let statusText = item.isCorrect ? "✅ Düzgün" : "❌ Səhv";
+                html += `<div class="report-card">
+                    <p><strong>🕒 Vaxt / Fənn:</strong> ${item.time} — <span style="color: #4f46e5;">${item.subject}</span></p>
+                    <p><strong>❓ Sual:</strong> ${item.question}</p>
+                    <p>Uşağın seçdiyi cavab: <strong>${item.selected}</strong></p>
+                    <p>Əslində olmalı idi: <strong style="color: #059669;">${item.correctAnswer}</strong> (<span style="color: ${statusColor}; font-weight: bold;">${statusText}</span>)</p>
+                </div>`;
+            });
+            reportContent.innerHTML = html;
+        }
+
+        function clearParentHistory() {
+            localStorage.removeItem('parent_live_answers');
+            openParentDashboard();
+        }
+
+        function goToMenu() {
+            quizBox.style.display = "none";
+            parentBox.style.display = "none";
+            mainMenu.style.display = "flex";
+        }
+    </script>
+</body>
+</html>
